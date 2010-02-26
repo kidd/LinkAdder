@@ -1,0 +1,16 @@
+---
+generation: 4
+last_run_time: 1267188821.19357
+tests:
+  t/01-LinkAdder.t:
+    elapsed: 0.00276684761047363
+    gen: 4
+    last_fail_time: 1267188821.1922
+    last_result: 1
+    last_run_time: 1267188821.1922
+    last_todo: 0
+    mtime: 1267188819
+    seq: 4
+    total_failures: 4
+version: 1
+...
