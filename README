@@ -1,16 +1,15 @@
 LinkAdder
 
-The README is used to introduce the module and provide instructions on
-how to install the module, any machine dependencies it may have (for
-example C compilers and installed libraries) and any other information
-that should be provided before the module is installed.
+LinkAdder is a little script meant to help people write posts or webs by
+automatically adding common links you that are commonly written in posts.
 
-A README file is required for CPAN modules since CPAN extracts the README
-file from a module distribution so that people browsing the archive
-can use it to get an idea of the module's uses. It is usually a good idea
-to provide version information here so that people can decide whether
-fixes for the module are worth downloading.
+For example, it should help me adding the url of Barcelona.PM
+(http://www.perl.cat).
 
+The way to do it is passing a text (plain or html in near future) and LinkAdder
+should ouput a modified version of the text with the links added where it
+corresponds.  For the moment it's only a substitution app, but it should be
+able to guess github repositories, cpan distros, and more.
 
 INSTALLATION
 

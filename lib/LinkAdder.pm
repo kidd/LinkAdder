@@ -43,19 +43,43 @@ sub addDB {
 	$self->db( do $file  );
 }
 
+=head2 addLinks
+
+=over 4
+
+=item Arguments:
+	
+	$text to translate
+
+=cut
 
 sub addLinks {
 	my ($self, $text) = @_;
-	while ($text =~ /(.)?\b(\w+)\b(.)?/g) {
-		print $1 if defined $1;
-		if (exists $self->db->{lc $2}) {
-			print '<a href="', $self->db->{lc $2}, '">', $2, '</a>';
-		}
-		else{ print $2 }
-		print $3 if defined $3;
+	if ($text =~ /^<html>/i) {
+		$self->_doInHtml($text);
+	} else {
+		$self->_doInPlain($text);
 	}
 }
 
+sub _doInPlain {
+	my ($self,$text) = @_;
+	my $out='';
+	while ($text =~ /(.)?\b(\w+)\b(.)?/g) {
+		$out .= $1 if defined $1;
+		if (exists $self->db->{lc $2}) {
+			$out .= '<a href="', $self->db->{lc $2}, '">', $2, '</a>';
+		}
+		else{ print $2 }
+		$out .= $3 if defined $3;
+	}
+	return $out;
+}
+
+sub _doInHtml {
+	my ($self, $text) = @_;
+	return $text;
+}
 __PACKAGE__->meta->make_immutable();
 
 =head1 AUTHOR
