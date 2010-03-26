@@ -1,9 +1,11 @@
 package LinkAdder;
+use HTML::TreeBuilder;
 use Mouse;
 
 =head1 NAME
 
-LinkAdder - The great new LinkAdder!
+LinkAdder - The great new LinkAdder that helps adding common links to your blog
+posts
 
 =head1 VERSION
 
@@ -65,6 +67,10 @@ sub addLinks {
 sub _doInPlain {
 	my ($self,$text) = @_;
 	my $out='';
+	my $tb = HTML::TreeBuilder->new();
+	$tb->parse($text);
+	my $tree = $tb->root;
+	my @contents = $tree->look_down();
 	while ($text =~ /(.)?\b(\w+)\b(.)?/g) {
 		$out .= $1 if defined $1;
 		if (exists $self->db->{lc $2}) {
@@ -80,6 +86,7 @@ sub _doInHtml {
 	my ($self, $text) = @_;
 	return $text;
 }
+
 __PACKAGE__->meta->make_immutable();
 
 =head1 AUTHOR
