@@ -41,6 +41,7 @@ if you don't export anything, such as for a purely object-oriented module.
 sub addDB {
 	my ($self, $file) = @_;
 	$self->db( do $file  );
+	#print Data::Dumper::Dumper $self->db;
 }
 
 =head2 addLinks
@@ -50,6 +51,8 @@ sub addDB {
 =item Arguments:
 	
 	$text to translate
+
+=back 
 
 =cut
 
@@ -65,13 +68,16 @@ sub addLinks {
 sub _doInPlain {
 	my ($self,$text) = @_;
 	my $out='';
-	while ($text =~ /(.)?\b(\w+)\b(.)?/g) {
+	while ($text =~ /(.)?\b([\w.-:]+)\b(.)?/gi) {
 		$out .= $1 if defined $1;
-		if (exists $self->db->{lc $2}) {
-			$out .= '<a href="', $self->db->{lc $2}, '">', $2, '</a>';
+		my $word = $2;
+		my $post = $3;
+		if (exists $self->db->{lc $word}) {
+			$out .= '<a href="'. $self->db->{lc $word} . '">'. $word. '</a>';
 		}
-		else{ print $2 }
-		$out .= $3 if defined $3;
+		elsif ($word =~ /CPAN:(.+)/){$out .= '<a href="http://search.cpan.org/perldoc?'.$1.'">'. $1.  '</a>'; }
+		else{ $out.= $word }
+		$out .= $post if defined $post;
 	}
 	return $out;
 }

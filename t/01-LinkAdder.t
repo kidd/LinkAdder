@@ -11,5 +11,5 @@ my $la = LinkAdder->new;
 $la->addDB('conf.conf');
 print Dumper $la->db;
 
-$la->addLinks('hola flibug adeu');
+print $la->addLinks('hola Flibug adeu gts fas');
 done_testing;
